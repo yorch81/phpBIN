@@ -41,10 +41,9 @@ abstract class BIN
 							'CARD_TYPE'=>'',
 							'CARD_CATEGORY'=>'',
 							'COUNTRY'=>'',
-							'CC_ISO3166-1'=>'',
-							'CC_ISO A2'=>'',
-							'CC_ISO A3'=>'',
-							'COUNTRY NUM'=>'',
+							'CC_ISO3166_1'=>'',
+							'CC_ISO_A3'=>'',
+							'COUNTRY_NUM'=>'',
 							'WEBSITE'=>'',
 							'PHONE'=>'');
 
@@ -113,14 +112,45 @@ class BinList extends BIN
 			$this->_info['CARD_TYPE'] = $binlist->card_type;
 			$this->_info['CARD_CATEGORY'] = $binlist->card_category;
 			$this->_info['COUNTRY'] = $binlist->country_name;
-			$this->_info['CC_ISO3166-1'] = $binlist->country_code;
-			$this->_info['CC_ISO A2'] = "";
-			$this->_info['CC_ISO A3'] = "";
-			$this->_info['COUNTRY NUM'] = "";
+			$this->_info['CC_ISO3166_1'] = $binlist->country_code;
+			$this->_info['CC_ISO_A3'] = "";
+			$this->_info['COUNTRY_NUM'] = "";
 			$this->_info['WEBSITE'] = "";
 			$this->_info['PHONE'] = "";
 		}
 
+		return $this->_info;
+	}
+}
+
+/**
+ * BinBase implementation for BIN in local Database
+ * 
+ * @category   BinBase
+ * @package    BinBase
+ * @copyright  Copyright 2014 Jorge Alberto Ponce Turrubiates
+ * @license    http://www.apache.org/licenses/LICENSE-2.0
+ * @version    1.0.0, 2015-06-10
+ * @author     Jorge Alberto Ponce Turrubiates (the.yorch@gmail.com)
+ */
+class BinBase extends BIN
+{
+	/**
+	 * Contructor Class
+	 */
+	public function __construct()
+	{
+
+	}
+
+	/**
+	 * Gets info for a BIN/IIN
+	 *
+	 * @param string $bin BIN/IIN 6 digits Number
+	 * @return array
+	 */
+	public function getInfo($bin)
+	{
 		return $this->_info;
 	}
 }

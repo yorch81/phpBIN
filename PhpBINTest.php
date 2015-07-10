@@ -55,10 +55,9 @@ class PhpBINTest extends PHPUnit_Framework_TestCase
 						'CARD_TYPE'=>'DEBIT',
 						'CARD_CATEGORY'=>'',
 						'COUNTRY'=>'Mexico',
-						'CC_ISO3166-1'=>'MX',
-						'CC_ISO A2'=>'',
-						'CC_ISO A3'=>'',
-						'COUNTRY NUM'=>'',
+						'CC_ISO3166_1'=>'MX',
+						'CC_ISO_A3'=>'',
+						'COUNTRY_NUM'=>'',
 						'WEBSITE'=>'',
 						'PHONE'=>'');
 
