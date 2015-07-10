@@ -23,8 +23,10 @@ Execute composer.phar install
 
 ## Example ##
 ~~~
-// PhpBIN
-$bin = new PhpBIN('binlist');
+
+$mybin = PhpBIN::getInstance('BinList');
+
+var_dump($mybin->getInfo("557910"));
 
 ~~~
 
