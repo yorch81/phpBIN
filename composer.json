@@ -1,0 +1,21 @@
+{
+    "name": "yorch/phpbin",
+    "description": "PHP Library for validate BIN/IIN Numbers Cards",
+    "keywords": ["BIN", "IIN", "Credit Card"],
+    "homepage": "https://github.com/yorch81/phpBIN",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jorge Alberto Ponce Turrubiates",
+            "email": "the.yorch@gmail.com",
+            "homepage": "http://the-yorch.blogspot.mx/"
+        }
+    ],
+    "require": {
+    	"php": ">=5.4.0"
+    },
+    "autoload": {
+        "files": ["PhpBIN.class.php"]
+    }
+}

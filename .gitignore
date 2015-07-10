@@ -1,0 +1,6 @@
+*~
+.*.sw*
+config.php
+*.log
+vendor/
+*.lock
