@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-    	"php": ">=5.4.0"
+    	"php": ">=5.4.0",
+        "catfan/medoo": "dev-master"
     },
     "autoload": {
         "files": ["PhpBIN.class.php"]

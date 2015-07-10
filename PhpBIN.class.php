@@ -45,7 +45,6 @@ class PhpBIN
      */
 	private $_bin;
 
-
 	/**
 	 * Constructor of class is private for implements Singleton Pattern
 	 *
@@ -91,6 +90,22 @@ class PhpBIN
 	public function getInfo($bin)
 	{
 		return $this->_bin->getInfo($bin);
+	}
+
+	/**
+	 * Connect with a BinBase Database
+	 * 
+	 * @param  string $dbtype Connection Type
+	 * @param  string $server Database Server
+	 * @param  string $user   Database User
+	 * @param  string $pwd    Database Password
+	 * @param  strng  $dbname Database Name
+	 * @param  string $table  Table of BIN
+	 * @return boolean
+	 */
+	public function connect($dbtype, $server, $user, $pwd, $dbname, $table)
+	{
+		return $this->_bin->connect($dbtype, $server, $user, $pwd, $dbname, $table);
 	}
 
 	/**

@@ -32,7 +32,7 @@ abstract class BIN
 	/**
      * Array Information Card of BIN/IIN
      *
-     * @var Array $_info Information Card
+     * @var array $_info Information Card
      * @access private
      */
 	protected $_info = array('BIN' => '000000',
@@ -55,6 +55,18 @@ abstract class BIN
 	 */
 	public abstract function getInfo($bin);
 
+	/**
+	 * Connect with a BinBase Database
+	 * 
+	 * @param  string $dbtype Connection Type
+	 * @param  string $server Database Server
+	 * @param  string $user   Database User
+	 * @param  string $pwd    Database Password
+	 * @param  strng  $dbname Database Name
+	 * @param  string $table  Table of BIN
+	 * @return boolean
+	 */
+	public abstract function connect($dbtype, $server, $user, $pwd, $dbname, $table);
 }
 
 /**
@@ -121,10 +133,26 @@ class BinList extends BIN
 
 		return $this->_info;
 	}
+
+	/**
+	 * Connect with a BinBase Database
+	 * 
+	 * @param  string $dbtype Connection Type
+	 * @param  string $server Database Server
+	 * @param  string $user   Database User
+	 * @param  string $pwd    Database Password
+	 * @param  strng  $dbname Database Name
+	 * @param  string $table  Table of BIN
+	 * @return boolean
+	 */
+	public function connect($dbtype, $server, $user, $pwd, $dbname, $table)
+	{
+		return true;
+	}
 }
 
 /**
- * BinBase implementation for BIN in local Database
+ * BinBase implementation for BIN in MySql Database
  * 
  * @category   BinBase
  * @package    BinBase
@@ -133,8 +161,24 @@ class BinList extends BIN
  * @version    1.0.0, 2015-06-10
  * @author     Jorge Alberto Ponce Turrubiates (the.yorch@gmail.com)
  */
-class BinBase extends BIN
+class MyBinBase extends BIN
 {
+	/**
+     * DataBase Connection 
+     *
+     * @var object $_conn Connection
+     * @access private
+     */
+	private $_conn = null;
+
+	/**
+     * BIN Table
+     *
+     * @var string $_table BIN Table
+     * @access private
+     */
+	private $_table = 'binbase';
+
 	/**
 	 * Contructor Class
 	 */
@@ -151,7 +195,65 @@ class BinBase extends BIN
 	 */
 	public function getInfo($bin)
 	{
+		$query = "SELECT * FROM " . $this->_table . " WHERE BIN = '" . $bin . "'";
+
+		if ($this->_conn != null){
+			$results = $this->_conn->query($query)->fetchAll();
+
+			if (count($results) > 0){
+				$this->_info['BIN'] = $results[0]['BIN'];
+				$this->_info['BRAND'] = $results[0]['BRAND'];
+				$this->_info['BANK'] = $results[0]['BANK'];
+				$this->_info['CARD_TYPE'] = $results[0]['CARD_TYPE'];
+				$this->_info['CARD_CATEGORY'] = $results[0]['CARD_CATEGORY'];
+				$this->_info['COUNTRY'] = $results[0]['COUNTRY'];
+				$this->_info['CC_ISO3166_1'] = $results[0]['CC_ISO3166_1'];
+				$this->_info['CC_ISO_A3'] = $results[0]['CC_ISO_A3'];
+				$this->_info['COUNTRY_NUM'] = $results[0]['COUNTRY_NUM'];
+				$this->_info['WEBSITE'] = $results[0]['WEBSITE'];
+				$this->_info['PHONE'] = $results[0]['PHONE'];
+			}
+		}
+
 		return $this->_info;
+	}
+
+	/**
+	 * Connect with a BinBase Database
+	 * 
+	 * @param  string $dbtype Connection Type
+	 * @param  string $server Database Server
+	 * @param  string $user   Database User
+	 * @param  string $pwd    Database Password
+	 * @param  strng  $dbname Database Name
+	 * @param  string $table  Table of BIN
+	 * @return boolean
+	 */
+	public function connect($dbtype, $server, $user, $pwd, $dbname, $table)
+	{
+		try {
+			$this->_table = $table;
+
+			$this->_conn = new medoo([
+			    'database_type' => $dbtype,
+			    'database_name' => $dbname,
+			    'server' => $server,
+			    'username' => $user,
+			    'password' => $pwd,
+			    'charset' => 'utf8',
+			    'port' => 3306,
+			    'option' => [
+			        PDO::ATTR_CASE => PDO::CASE_NATURAL
+			    ]
+			]);
+
+			return true; 
+        }
+        catch (Exception $e) {
+            $this->_conn = null;
+
+            return false;
+        }
 	}
 }
 
