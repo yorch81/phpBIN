@@ -49,11 +49,12 @@ class PhpBIN
 	 * Constructor of class is private for implements Singleton Pattern
 	 *
 	 * @param string $bintype BIN Provider Type
+	 * @param array $config Connection Configuration
 	 */
-	private function __construct($bintype)
+	private function __construct($bintype, $config = null)
 	{
 		if(class_exists($bintype)){
-			$this->_bin = new $bintype();
+			$this->_bin = new $bintype($config);
 		}
 		else{
 			$this->_bin = null;
@@ -66,9 +67,10 @@ class PhpBIN
 	 * Implements Singleton Pattern
 	 *
 	 * @param string $bintype BIN Provider Type
+	 * @param array $config Connection Configuration
 	 * @return Object | null
 	 */
-	public static function getInstance($bintype)
+	public static function getInstance($bintype, $config = null)
 	{
 		// If exists Instance return same Instance
 		if(self::$_instance){
@@ -76,7 +78,7 @@ class PhpBIN
 		}
 		else{
 			$class = __CLASS__;
-			self::$_instance = new $class($bintype);
+			self::$_instance = new $class($bintype, $config);
 			return self::$_instance;
 		}
 	}

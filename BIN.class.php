@@ -54,19 +54,6 @@ abstract class BIN
 	 * @return array
 	 */
 	public abstract function getInfo($bin);
-
-	/**
-	 * Connect with a BinBase Database
-	 * 
-	 * @param  string $dbtype Connection Type
-	 * @param  string $server Database Server
-	 * @param  string $user   Database User
-	 * @param  string $pwd    Database Password
-	 * @param  strng  $dbname Database Name
-	 * @param  string $table  Table of BIN
-	 * @return boolean
-	 */
-	public abstract function connect($dbtype, $server, $user, $pwd, $dbname, $table);
 }
 
 /**
@@ -82,9 +69,10 @@ abstract class BIN
 class BinList extends BIN
 {
 	/**
-	 * Contructor Class
+	 * Constructor Class
+	 * @param array $config Connection Configuration
 	 */
-	public function __construct()
+	public function __construct($config = null)
 	{
 
 	}
@@ -133,22 +121,6 @@ class BinList extends BIN
 
 		return $this->_info;
 	}
-
-	/**
-	 * Connect with a BinBase Database
-	 * 
-	 * @param  string $dbtype Connection Type
-	 * @param  string $server Database Server
-	 * @param  string $user   Database User
-	 * @param  string $pwd    Database Password
-	 * @param  strng  $dbname Database Name
-	 * @param  string $table  Table of BIN
-	 * @return boolean
-	 */
-	public function connect($dbtype, $server, $user, $pwd, $dbname, $table)
-	{
-		return true;
-	}
 }
 
 /**
@@ -180,11 +152,27 @@ class MyBinBase extends BIN
 	private $_table = 'binbase';
 
 	/**
-	 * Contructor Class
-	 */
-	public function __construct()
-	{
+     * Connected Flag
+     *
+     * @var boolean $_connected Connected Flag
+     * @access private
+     */
+	private $_connected = false;
 
+	/**
+	 * Constructor Class
+	 * @param array $config Connection Configuration
+	 */
+	public function __construct($config = null)
+	{
+		$dbtype = $config['DBTYPE'];
+		$server = $config['SERVER'];
+		$user = $config['USER'];
+		$pwd = $config['PASSWORD'];
+		$dbname = $config['DBNAME'];
+		$table = $config['TABLE'];
+
+		$this->connect($dbtype, $server, $user, $pwd, $dbname, $table);
 	}
 
 	/**
@@ -196,7 +184,7 @@ class MyBinBase extends BIN
 	public function getInfo($bin)
 	{
 		$query = "SELECT * FROM " . $this->_table . " WHERE BIN = '" . $bin . "'";
-
+		
 		if ($this->_conn != null){
 			$results = $this->_conn->query($query)->fetchAll();
 
@@ -229,7 +217,7 @@ class MyBinBase extends BIN
 	 * @param  string $table  Table of BIN
 	 * @return boolean
 	 */
-	public function connect($dbtype, $server, $user, $pwd, $dbname, $table)
+	private function connect($dbtype, $server, $user, $pwd, $dbname, $table)
 	{
 		try {
 			$this->_table = $table;
@@ -245,14 +233,10 @@ class MyBinBase extends BIN
 			    'option' => [
 			        PDO::ATTR_CASE => PDO::CASE_NATURAL
 			    ]
-			]);
-
-			return true; 
+			]); 
         }
         catch (Exception $e) {
             $this->_conn = null;
-
-            return false;
         }
 	}
 }

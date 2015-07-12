@@ -17,7 +17,9 @@ Create file composer.json
 
 {
     "require": {
-        "yorch/phpbin": "dev-master"
+    	"php": ">=5.4.0",
+        "yorch/phpbin" : "dev-master",
+        "catfan/medoo": "dev-master"
     }
 }
 
