@@ -38,9 +38,9 @@ class PhpBINTestMon extends PHPUnit_Framework_TestCase
     protected function setUp() {
     	$_config = array('DBTYPE' => 'mongo',
                         'SERVER'=> 'localhost',
-                        'USER' =>'yorch',
-                        'PASSWORD'=>'password',
-                        'DBNAME'=>'yorch',
+                        'USER' =>'',
+                        'PASSWORD'=>'',
+                        'DBNAME'=>'',
                         'COLLECTION'=>'binbase');
 
     	$this->bin = PhpBIN::getInstance('MonBinBase', $_config);

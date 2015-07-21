@@ -13,7 +13,12 @@ PHP Library for validate BIN/IIN Numbers Cards
 ## Developer Documentation ##
 Execute phpdoc -d phpBIN/
 
-## Installation ##
+## Unit Test ##
+For run Unit Test, complete information connection and execute the next commands:
+> phpunit PhpBINTest.php
+> phpunit PhpBINTestMy.php
+> phpunit PhpBINTestMon.php
+
 Create file composer.json
 
 {
@@ -46,7 +51,7 @@ For local Database implementation must configure with the connect method.
 
 Check MySQL import script binbase.sql.
 
-For MongoDb check mongo.script.
+For import binbase to MongoDb check mongo.script and execute commands.
 
 ## References ##
 http://www.binlist.net/
