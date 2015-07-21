@@ -8,6 +8,7 @@ PHP Library for validate BIN/IIN Numbers Cards
 * [BINList](http://www.binlist.net/)
 * [Medoo](http://medoo.in/)
 * [MySQL](https://www.mysql.com/)
+* [MongoDb](https://www.mongodb.com/)
 
 ## Developer Documentation ##
 Execute phpdoc -d phpBIN/
@@ -44,6 +45,8 @@ Due to the high volume of queries we've implemented a throttling mechanism, whic
 For local Database implementation must configure with the connect method. 
 
 Check MySQL import script binbase.sql.
+
+For MongoDb check mongo.script.
 
 ## References ##
 http://www.binlist.net/

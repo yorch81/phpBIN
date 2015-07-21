@@ -1,0 +1,14 @@
+// Add Header
+sed -i '1s/^/BIN;BRAND;BANK;CARD_TYPE;CARD_CATEGORY;COUNTRY;CC_ISO3166_1;CC_ISO_A3;COUNTRY_NUM;WEBSITE;PHONE; /' binbase.csv 
+
+// Change , 
+sed  -i  's/,/./g' binbase.csv
+
+// Change ;
+sed  -i  's/;/,/g' binbase.csv
+
+// Execute MongoImport
+mongoimport -u user -p password -d dbname -c binbase --type csv --file binbase.csv --headerline
+
+// Enter MongoDb Console and create index
+> db.binbase.ensureIndex({"BIN": 1}, {unique: true});
