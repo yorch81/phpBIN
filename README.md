@@ -19,7 +19,9 @@ For run Unit Test, complete information connection and execute the next commands
 > phpunit PhpBINTestMy.php
 > phpunit PhpBINTestMon.php
 
+## Installation ##
 Create file composer.json
+~~~
 
 {
     "require": {
@@ -29,6 +31,8 @@ Create file composer.json
     }
 }
 
+~~~
+
 Execute composer.phar install
 
 ## Example ##
@@ -36,7 +40,7 @@ Execute composer.phar install
 
 $mybin = PhpBIN::getInstance('BinList');
 
-var_dump($mybin->getInfo("557910"));
+var_dump($mybin->getInfo("111904"));
 
 ~~~
 
