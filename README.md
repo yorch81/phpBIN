@@ -42,6 +42,31 @@ $mybin = PhpBIN::getInstance('BinList');
 
 var_dump($mybin->getInfo("111904"));
 
+array(11) {
+  'BIN' =>
+  string(6) "111904"
+  'BRAND' =>
+  string(9) "Visa Plus"
+  'BANK' =>
+  NULL
+  'CARD_TYPE' =>
+  string(5) "DEBIT"
+  'CARD_CATEGORY' =>
+  string(4) "VISA"
+  'COUNTRY' =>
+  string(13) "United States"
+  'CC_ISO3166_1' =>
+  string(2) "US"
+  'CC_ISO_A3' =>
+  string(0) ""
+  'COUNTRY_NUM' =>
+  string(3) "840"
+  'WEBSITE' =>
+  NULL
+  'PHONE' =>
+  NULL
+}
+
 ~~~
 
 ## Notes ##

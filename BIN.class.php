@@ -85,7 +85,7 @@ class BinList extends BIN
 	 */
 	public function getInfo($bin)
 	{
-		$url = "http://www.binlist.net/json/" . $bin;
+		$url = "https://lookup.binlist.net/" . $bin;
 
 		$handler = curl_init($url); 
 
@@ -101,24 +101,24 @@ class BinList extends BIN
         curl_setopt($handler, CURLOPT_AUTOREFERER, TRUE);  
 
 		$response = curl_exec ($handler);  
-		curl_close($handler);  
+		curl_close($handler);
 
-		if (substr($response, 0, 3) != '404'){
+		if (strlen($response) > 0){
 			$binlist = json_decode($response);
-			
-			$this->_info['BIN'] = $binlist->bin;
-			$this->_info['BRAND'] = $binlist->brand;
-			$this->_info['BANK'] = $binlist->bank;
-			$this->_info['CARD_TYPE'] = $binlist->card_type;
-			$this->_info['CARD_CATEGORY'] = $binlist->card_category;
-			$this->_info['COUNTRY'] = $binlist->country_name;
-			$this->_info['CC_ISO3166_1'] = $binlist->country_code;
-			$this->_info['CC_ISO_A3'] = "";
-			$this->_info['COUNTRY_NUM'] = "";
-			$this->_info['WEBSITE'] = "";
-			$this->_info['PHONE'] = "";
-		}
 
+			$this->_info['BIN'] = $binlist->number->prefix;
+			$this->_info['BRAND'] = $binlist->brand;
+			$this->_info['BANK'] = $binlist->bank->name;
+			$this->_info['CARD_TYPE'] = $binlist->type;
+			$this->_info['CARD_CATEGORY'] = $binlist->scheme;
+			$this->_info['COUNTRY'] = $binlist->country->name;
+			$this->_info['CC_ISO3166_1'] = $binlist->country->alpha2;
+			$this->_info['CC_ISO_A3'] = "";
+			$this->_info['COUNTRY_NUM'] = $binlist->country->numeric;
+			$this->_info['WEBSITE'] = $binlist->bank->url;
+			$this->_info['PHONE'] = $binlist->bank->phone;
+		}
+		
 		return $this->_info;
 	}
 }
