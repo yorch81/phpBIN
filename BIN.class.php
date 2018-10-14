@@ -106,17 +106,17 @@ class BinList extends BIN
 		if (strlen($response) > 0){
 			$binlist = json_decode($response);
 
-			$this->_info['BIN'] = $binlist->number->prefix;
-			$this->_info['BRAND'] = $binlist->brand;
-			$this->_info['BANK'] = $binlist->bank->name;
-			$this->_info['CARD_TYPE'] = $binlist->type;
-			$this->_info['CARD_CATEGORY'] = $binlist->scheme;
-			$this->_info['COUNTRY'] = $binlist->country->name;
-			$this->_info['CC_ISO3166_1'] = $binlist->country->alpha2;
+			$this->_info['BIN'] = $bin;
+			$this->_info['BRAND'] = (isset($binlist->brand) ? $binlist->brand : '');
+			$this->_info['BANK'] = (isset($binlist->bank->name) ? $binlist->bank->name : '');
+			$this->_info['CARD_TYPE'] = (isset($binlist->type) ? $binlist->type : '');
+			$this->_info['CARD_CATEGORY'] = (isset($binlist->scheme) ? $binlist->scheme : '');
+			$this->_info['COUNTRY'] = (isset($binlist->country->name) ? $binlist->country->name : '');
+			$this->_info['CC_ISO3166_1'] = (isset($binlist->country->alpha2) ? $binlist->country->alpha2 : '');
 			$this->_info['CC_ISO_A3'] = "";
-			$this->_info['COUNTRY_NUM'] = $binlist->country->numeric;
-			$this->_info['WEBSITE'] = $binlist->bank->url;
-			$this->_info['PHONE'] = $binlist->bank->phone;
+			$this->_info['COUNTRY_NUM'] = (isset($binlist->country->numeric) ? $binlist->country->numeric : '');
+			$this->_info['WEBSITE'] = (isset($binlist->bank->url) ? $binlist->bank->url : '');
+			$this->_info['PHONE'] = (isset($binlist->bank->phone) ? $binlist->bank->phone : '');
 		}
 		
 		return $this->_info;
